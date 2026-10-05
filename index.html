@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>❤️A Liitle Secret❤️</title>
+
+  <!-- Canvas Confetti Library for the celebration effect -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    /* Reset & Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      transition: background-color 0.8s ease;
+    }
+
+    /* Page 1 Specific Styling */
+    body.page-1-bg {
+      background-image: url('https://static.vecteezy.com/system/resources/previews/002/894/904/original/lovely-purple-pastel-heart-background-free-vector.jpg');
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      color: #ffffff;
+    }
+
+    /* Page 2 Specific Styling */
+    body.page-2-bg {
+      background-image: url('https://static.vecteezy.com/system/resources/previews/002/894/904/original/lovely-purple-pastel-heart-background-free-vector.jpg');
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      color: #ffffff;
+    }
+
+    .page {
+      display: none;
+      width: 100%;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+    }
+
+    .page.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    /* --- PAGE 1 STYLES --- */
+    .proposal-container {
+      text-align: center;
+      max-width: 600px;
+    }
+
+    /* Pulsing Heart Animation */
+    .pulsing-heart {
+      font-size: 80px;
+      margin-bottom: 20px;
+      animation: pulse 1.2s infinite ease-in-out;
+      display: inline-block;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.25);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .proposal-text {
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 35px;
+      color: #fff0f5;
+      text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+    }
+
+    .normal-text {
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 35px;
+      color: #fff0f5;
+      text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+    }
+
+    /* Pulsing & Hovering Button */
+    .btn-yes {
+      background: linear-gradient(135deg, rgb(233, 149, 233), white);
+      color: #ff4b2b;
+      border: none;
+      padding: 16px 36px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
+      animation: buttonPulse 2s infinite ease-in-out;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+
+    .subtitle-top {
+      font-family: 'Cinzel', serif;
+      font-size: 0.98rem;
+      font-weight: bold;
+      letter-spacing: 3px;
+      color: #301934;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    @keyframes buttonPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(255, 65, 108, 0.7);
+      }
+
+      70% {
+        box-shadow: 0 0 0 20px rgba(255, 65, 108, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(255, 65, 108, 0);
+      }
+    }
+
+    .btn-yes:hover {
+      transform: translateY(-3px) scale(1.08);
+      box-shadow: 0 8px 25px rgba(255, 65, 108, 0.7);
+      background: linear-gradient(135deg, white, rgb(233, 149, 233));
+    }
+
+    /* --- PAGE 2 STYLES --- */
+    .card-container {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: row;
+      max-width: 800px;
+      width: 100%;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .card-left {
+      flex: 1;
+      padding: 0; /* Removed padding to let image fill edge-to-edge */
+      display: flex;
+    }
+
+    .card-right {
+      flex: 1;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .couple-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+      object-fit: cover; /* Ensures the image covers the left container without distorting */
+    }
+
+    /* Fade-in Love Note */
+    .card-right {
+      animation: fadeIn 2s ease-in-out forwards;
+      text-align: center;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .love-note {
+      font-size: 1.25rem;
+      line-height: 1.7;
+      color: #4a4a4a;
+      font-style: italic;
+      margin-bottom: 25px;
+    }
+
+    .btn-surprise {
+      background-color:#9933cc;
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-surprise:hover {
+      background-color: #6a1b9a;
+      transform: scale(1.05);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .card-container {
+        flex-direction: column;
+      }
+
+      .proposal-text {
+        font-size: 1.75rem;
+      }
+
+      .card-right {
+        padding: 20px;
+      }
+
+      .couple-img {
+        max-height: 250px; /* Optional limit for smaller screens */
+      }
+    }
+  </style>
+</head>
+
+<body class="page-1-bg">
+
+  <!-- PAGE 1 -->
+  <section id="page1" class="page active">
+    <div class="proposal-container">
+      <div class="pulsing-heart">❤️</div>
+      <div class="subtitle-top">✦ A LITTLE SECRET ✦</div>
+      <h1 class="proposal-text">Can I say something ?</h1>
+      <h3 class="normal-text">Close your eyes for a moment...</h3>
+      <h3 class="normal-text">and press the button when you're ready</h3>
+      <button class="btn-yes" onclick="goToPage2()">S❤️J</button>
+    </div>
+  </section>
+
+  <!-- PAGE 2 -->
+  <section id="page2" class="page">
+    <div class="card-container">
+      <!-- Left Half: Image -->
+      <div class="card-left">
+        <img src="https://i.pinimg.com/736x/28/d3/05/28d305ee60c2165260488122ca2fefd3.jpg"
+          alt="Couple holding hands" class="couple-img" />
+      </div>
+
+      <!-- Right Half: Love Note -->
+      <div class="card-right">
+        <p class="love-note">
+          I don't know where to begin but will try to put my feelings into words. From the moment our paths crossed, 
+          Everything felt completely different and beautiful! I am so lucky to have you in my lyf. 
+          Thank you for trusting me. I promise that I will never ever hurt you and even if it happens I will be the one to come back to you and comfort you.
+          Lets make happy memories together.
+          ❤️I LOVE YOU PAPA❤️
+        </p>
+        <button class="btn-surprise" onclick="triggerConfetti()">❤️❤️❤️</button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Navigation Logic between Page 1 and Page 2
+    function goToPage2() {
+      const page1 = document.getElementById('page1');
+      const page2 = document.getElementById('page2');
+      const body = document.body;
+
+      // Smooth Page 1 Fade Out
+      page1.style.opacity = '0';
+
+      setTimeout(() => {
+        page1.classList.remove('active');
+
+        // Update background color smoothly
+        body.classList.remove('page-1-bg');
+        body.classList.add('page-2-bg');
+
+        // Show Page 2 and Fade In
+        page2.classList.add('active');
+        setTimeout(() => {
+          page2.style.opacity = '1';
+        }, 50);
+      }, 800);
+    }
+
+    // Confetti Effect Function for Page 2 Button
+    function triggerConfetti() {
+      confetti({
+        particleCount: 120,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }
+  </script>
+</body>
+
+</html>
